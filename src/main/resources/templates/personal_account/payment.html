@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>< N / T ></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- адаптивность контента от Bootstrap5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<div class="row justify-content-center">
+    <div class="col-lg-6">
+        <div class="w-100 p-3">
+            <div class="card">
+                <div class="card-body"><h3>Банковские реквизиты <span class="badge bg-secondary">для тестовой транзакции на 1 рубль</span>
+                </h3>
+                    <div class="container mt-5">
+                        <div class="container mt-5">
+                            <form id="pay">
+                                <div class="form-group">
+                                    <label for="name_bank">Название банка:</label>
+                                    <input type="text" class="form-control" id="name_bank" name="name_bank" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="bik_bank">БИК банка:</label>
+                                    <input type="text" class="form-control" id="bik_bank" name="bik_bank" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="namber_bank">Номер счета:</label>
+                                    <input type="text" class="form-control" id="namber_bank" name="namber_bank"
+                                           required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="kor_bank">Корреспондентский счет банка:</label>
+                                    <input type="text" class="form-control" id="kor_bank" name="kor_bank" required>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary">Сделать тестовую оплату</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById('pay').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        bank = document.getElementById('bank').value;
+        bik = document.getElementById('bik').value;
+        accountNumber = document.getElementById('accountNumber').value;
+        correspondentAccountOfTheBank = document.getElementById('correspondentAccountOfTheBank').value;
+
+        try {
+            const response = await fetch('http://localhost:8080/verifier-service/payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    bank: bank,
+                    bik: bik,
+                    accountNumber: accountNumber,
+                    correspondentAccountOfTheBank: correspondentAccountOfTheBank
+                })
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                window.location.href = 'http://localhost:8080/verifier-service/otp-page';
+            } else {
+                showMessage('register-message', 'danger', result.message);
+            }
+        } catch (error) {
+            showMessage('register-message', 'danger', 'Произошла ошибка при отправке формы.');
+        }
+    });
+
+</script>
+</body>
+</html>

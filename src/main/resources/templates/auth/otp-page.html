@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>< N / T ></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- адаптивность контента от Bootstrap5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/92c67e9609.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="row justify-content-center">
+    <form id="login-form"></form>
+    <form id="register-form"></form>
+
+    <div class="col-lg-4">
+        <div class="w-100 p-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Форма OTP Verification<span class="badge bg-secondary">< N / T ></span></h3>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel"
+                             aria-labelledby="pills-entrance" tabindex="0">
+                            <!-- ВХОД -->
+                            <form id="otp-form">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-key" style="color: #dc3545;"></i></span>
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="code" placeholder="xxx2" name="code" required>
+                                        <label for="code">Код</label>
+                                    </div>
+                                </div>
+                                <button type="submit" class="btn btn-secondary w-100">Войти</button>
+                            </form>
+
+                            <br>
+                            <!-- Сообщение об ошибке или успехе -->
+                            <div id="login-message" class="alert d-flex align-items-center" role="alert" style="display: none;">
+                                <div id="login-message-icon"></div>
+                                <div id="login-message-text"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="/static/script.js"></script>
+</body>
+</html>

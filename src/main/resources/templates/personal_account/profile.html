@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>< N / T ></title>
+    <link rel="stylesheet" href="/static/main.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Меню</h2>
+        <ul>
+            <li>Профиль</li>
+            <li>Настройки</li>
+            <li>Сообщения</li>
+            <li>Выход</li>
+        </ul>
+    </div>
+    <div class="content">
+        <h1>Личный кабинет</h1>
+        <form id="profileForm">
+            <div class="form-group">
+                <label for="uuid">UUID:</label>
+                <span id="uuid">123e4567-e89b-12d3-a456-426614174000</span>
+                <input type="text" id="uuidInput" name="uuid" value="123e4567-e89b-12d3-a456-426614174000" readonly>
+            </div>
+            <div class="form-group">
+                <label for="fullName">Полное имя:</label>
+                <span id="fullName">Иван Иванов</span>
+                <input type="text" id="fullNameInput" name="fullName" value="Иван Иванов" required>
+            </div>
+            <div class="form-group">
+                <label for="company">Компания:</label>
+                <span id="company">ООО "Рога и Копыта"</span>
+                <input type="text" id="companyInput" name="company" value="ООО 'Рога и Копыта'" required>
+            </div>
+            <div class="form-group">
+                <label for="inn">ИНН:</label>
+                <span id="inn">1234567890</span>
+                <input type="text" id="innInput" name="inn" value="1234567890" required>
+            </div>
+            <div class="form-group">
+                <label for="ogrn">ОГРН:</label>
+                <span id="ogrn">9876543210</span>
+                <input type="text" id="ogrnInput" name="ogrn" value="9876543210" required>
+            </div>
+            <div class="form-group">
+                <label for="position">Должность:</label>
+                <span id="position">Директор</span>
+                <input type="text" id="positionInput" name="position" value="Директор" required>
+            </div>
+            <div class="form-group">
+                <label for="role">Статус:</label>
+                <span id="role">Администратор</span>
+                <input type="text" id="roleInput" name="role" value="Администратор">
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <span id="email">ivan@example.com</span>
+                <input type="email" id="emailInput" name="email" value="ivan@example.com" required>
+            </div>
+            <button type="button" class="edit-button" onclick="enableEditing()">Редактировать</button>
+            <button type="button" class="save-button" onclick="saveChanges()" style="display: none;">Сохранить</button>
+        </form>
+        <button type="button" class="payment" onclick="payment()">Активировать профиль</button>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetchProfileData();
+        });
+
+        function payment() {
+
+        }
+
+        function fetchProfileData() {
+            const token = sessionStorage.getItem('token');
+            fetch('http://localhost:8080/verifier-service/profile', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': token
+                }
+            }).then(response => {
+                if (response.ok) {
+                    return response.json();
+                } else {
+                    throw new Error('Ошибка при получении данных с сервера');
+                }
+            }).then(data => {
+                document.getElementById('fullName').textContent = data.fullName;
+                document.getElementById('company').textContent = data.company;
+                document.getElementById('inn').textContent = data.inn;
+                document.getElementById('ogrn').textContent = data.ogrn;
+                document.getElementById('position').textContent = data.position;
+
+                if (data.role === 'ADMIN') {
+                    document.getElementById('role').textContent = data.role;
+                    document.getElementById('role').style.backgroundColor = 'green';
+                } else if (data.role === 'EXPECTATION') {
+                    document.getElementById('role').textContent = data.role;
+                    document.getElementById('role').style.backgroundColor = 'yellow';
+                } else if (data.role === 'USER') {
+                    document.getElementById('role').textContent = data.role;
+                    document.getElementById('role').style.backgroundColor = 'red';
+                }
+                document.getElementById('email').textContent = data.email;
+            }).catch(error => {
+                showMessage('login-message', 'danger', error);
+            });
+        }
+
+        function enableEditing() {
+            document.querySelectorAll('.form-group').forEach(function(group) {
+                group.classList.add('editing');
+            });
+            document.querySelector('.edit-button').style.display = 'none';
+            document.querySelector('.save-button').style.display = 'inline-block';
+        }
+
+        function saveChanges() {
+            document.querySelectorAll('.form-group').forEach(function(group) {
+                group.classList.remove('editing');
+            });
+            document.querySelector('.edit-button').style.display = 'inline-block';
+            document.querySelector('.save-button').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

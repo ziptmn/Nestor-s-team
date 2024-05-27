@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>< N / T ></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- адаптивность контента от Bootstrap5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        .nav-pills .nav-link {
+            color: white !important;
+            background-color: #007bff !important; /* Цвет для неактивных вкладок */
+        }
+
+        .nav-pills .nav-link.active {
+            color: #007bff !important;
+            background-color: #f4f4f4 !important; /* Цвет для активной вкладки */
+            border-color: #007bff !important; /* Цвет границы активной вкладки */
+        }
+
+        .nav-pills .nav-link:hover {
+            color: #fff !important;
+            background-color: #88b0da !important; /* Цвет при наведении на неактивную вкладку */
+        }
+    </style>
+    <script src="https://kit.fontawesome.com/92c67e9609.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+<div class="row justify-content-center">
+    <div class="col-lg-4">
+        <div class="w-100 p-3">
+            <div class="card">
+                <div class="card-body">
+                    <h3>Форма регистрации <span class="badge bg-secondary">< N / T ></span></h3>
+
+                    <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="pills-entrance" data-bs-toggle="pill" data-bs-target="#pills-home" type="button" role="tab" aria-controls="pills-home" aria-selected="true">Вход</button>
+                        </li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="pills-registration" data-bs-toggle="pill" data-bs-target="#registration_area" type="button" role="tab" aria-controls="registration_area" aria-selected="false">Регистрация</button>
+                        </li>
+                    </ul>
+
+                    <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-entrance" tabindex="0">
+                            <!-- ВХОД -->
+                            <form id="login-form">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-at" style="color: #dc3545;"></i></span>
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="loginEmail" placeholder="xxx1" name="email" required>
+                                        <label for="loginEmail">E-mail адрес</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-key" style="color: #dc3545;"></i></span>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="loginPassword" placeholder="xxx2" name="password" required>
+                                        <label for="loginPassword">Пароль</label>
+                                    </div>
+                                </div>
+                                <button id="login-button" type="submit" class="btn btn-primary w-100">Войти</button>
+                            </form>
+
+                            <br>
+                            <!-- Сообщение об ошибке или успехе -->
+                            <div id="login-message" class="alert d-flex align-items-center" role="alert" style="display: none;">
+                                <div id="login-message-icon"></div>
+                                <div id="login-message-text"></div>
+                            </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="registration_area" role="tabpanel" aria-labelledby="pills-registration" tabindex="0">
+                            <!-- РЕГИСТРАЦИЯ -->
+                            <form id="register-form">
+                                <div class="input-group mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="fullName" placeholder="xxx1" name="fullName" required>
+                                        <label for="fullName">ФИО</label>
+                                    </div>
+                                </div>
+                                <div class="input-group mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="company" placeholder="xxx1" name="company" required>
+                                        <label for="company">Компания</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="inn" placeholder="xxx1" name="inn" required>
+                                        <label for="inn">ИНН</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="ogrn" placeholder="xxx1" name="ogrn" required>
+                                        <label for="ogrn">ОГРН</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="position" placeholder="xxx1" name="position" required>
+                                        <label for="position">Должность в компании</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-at" style="color: #dc3545;"></i></span>
+                                    <div class="form-floating">
+                                        <input type="email" class="form-control" id="registerEmail" placeholder="xxx1" name="email" required>
+                                        <label for="registerEmail">E-mail адрес</label>
+                                    </div>
+                                </div>
+
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text"><i class="fa-solid fa-key" style="color: #dc3545;"></i></span>
+                                    <div class="form-floating">
+                                        <input type="password" class="form-control" id="registerPassword" placeholder="xxx2" name="password" required>
+                                        <label for="registerPassword">Пароль</label>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="validationFormCheck1" required>
+                                    <label class="form-check-label" for="validationFormCheck1">Согласен на обработку персональных данных</label>
+                                    <div class="invalid-feedback">Иначе платформой нельзя будет воспользоваться</div>
+                                </div>
+
+                                <!-- Сообщение об ошибке или успехе -->
+                                <div id="register-message" class="alert d-flex align-items-center" role="alert" style="display: none;">
+                                    <div id="register-message-icon"></div>
+                                    <div id="register-message-text"></div>
+                                </div>
+
+                                <button type="submit" class="btn btn-secondary w-100">Зарегистрироваться</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+<script src="/static/script.js"></script>
+</body>
+</html>

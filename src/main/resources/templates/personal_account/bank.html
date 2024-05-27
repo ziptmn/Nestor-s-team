@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bank</title>
+</head>
+<body>
+<button type="button" class="send">Платеж</button>
+<script>
+    function fetchProfileData() {
+        const token = sessionStorage.getItem('token');
+        fetch('http://localhost:8080/bank/transaction', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        }).then(response => {
+            if (response.ok) {
+                return response.json();
+            } else {
+                throw new Error('Ошибка при получении данных с сервера');
+            }
+        }).then(data => {
+            document.getElementById('fullName').textContent = data.fullName;
+            document.getElementById('company').textContent = data.company;
+            document.getElementById('inn').textContent = data.inn;
+            document.getElementById('ogrn').textContent = data.ogrn;
+            document.getElementById('position').textContent = data.position;
+
+            if (data.role === 'ADMIN') {
+                document.getElementById('role').textContent = data.role;
+                document.getElementById('role').style.backgroundColor = 'green';
+            } else if (data.role === 'EXPECTATION') {
+                document.getElementById('role').textContent = data.role;
+                document.getElementById('role').style.backgroundColor = 'yellow';
+            } else if (data.role === 'USER') {
+                document.getElementById('role').textContent = data.role;
+                document.getElementById('role').style.backgroundColor = 'red';
+            }
+            document.getElementById('email').textContent = data.email;
+        }).catch(error => {
+            showMessage('login-message', 'danger', error);
+        });
+    }
+</script>
+</body>
+</html>
